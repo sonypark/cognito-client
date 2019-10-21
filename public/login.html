@@ -41,6 +41,7 @@
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <script>
+      // Cognito를 이용한 자체 로그인 버튼
       function signInButton() {
         var authenticationData = {
           Username: document.getElementById('inputUsername').value,
@@ -67,7 +68,7 @@
 
         cognitoUser.authenticateUser(authenticationDetails, {
           onSuccess: function(result) {
-            var accessToken = result.getAccessToken().getJwtToken();
+            var accessToken = result.getAccessToken().getJwtToken(); // access token을 백엔드 서버로 보내주시면 됩니다.
             const idToken = result.idToken.jwtToken;
             console.log(accessToken);
             console.log(result);
@@ -79,9 +80,10 @@
         });
       }
 
+      // 구글 로그인 버튼
       function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
-        var id_token = googleUser.getAuthResponse().id_token;
+        var id_token = googleUser.getAuthResponse().id_token; // 구글 로그인의 경우 id_token을 백엔드로 보내주시면 됩니다.
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
